@@ -19,10 +19,16 @@ TB_EXCEL = 'ss.xlsx'
 MODEL_EXCEL = 'sd.xls'
 
 # 任务数量
-MAX_TASK_NUM=34
+MAX_TASK_NUM = 34
+
+# 任务时间跨度
+TIME_SPAN = 20
+
+# 整理那个页面的数据
+SHEET = 0
 
 ss = open_workbook(TB_EXCEL)
-V1 = ss.sheet_by_index(0)
+V1 = ss.sheet_by_index(SHEET)
 i = 0
 
 sd = open_workbook(MODEL_EXCEL, formatting_info=True)
@@ -36,10 +42,14 @@ for row_index in range(V1.nrows):
     if V1.cell(row_index, 8).value != '':
         if V1.cell(row_index, 5).value != '':
             i = i + 1
-            VV1.write(i + 3, 1, V1.cell(row_index, 0).value)
+            pre = ''
+            if V1.cell(row_index, 1).value != '':
+                pre = V1.cell(row_index, 1).value + '-'
+
+            VV1.write(i + 3, 1, pre + V1.cell(row_index, 0).value)
 
 # 写入日期
-for index in range(15):
+for index in range(TIME_SPAN):
     tom = datetime.datetime(YEAR, MONTH, DAY) + datetime.timedelta(days=index)
     text = tom.strftime('%m-%d')
     VV1.write(MAX_TASK_NUM, index + 2, text)
@@ -55,7 +65,6 @@ for row_index in range(V1.nrows):
         continue
     if V1.cell(row_index, 8).value != '':
         if V1.cell(row_index, 5).value != '':
-            print(V1.cell(row_index, 5).value)
             stime = time.strptime(V1.cell(row_index, 5).value, '%Y-%m-%d %H:%M:%S')
             dd = ''
             if stime[2] < 10:
@@ -65,7 +74,7 @@ for row_index in range(V1.nrows):
             str = "%s-%s" % (stime[1], dd)
             print(str)
             j = j + 1
-            for date_index in range(15):
+            for date_index in range(TIME_SPAN):
                 val = VVV1.cell(MAX_TASK_NUM, date_index + 2).value
                 # print(val)
                 if str == val:
