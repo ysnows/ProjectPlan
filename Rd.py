@@ -10,7 +10,7 @@ from xlutils.copy import copy
 # 开始日期
 YEAR = 2017
 MONTH = 12
-DAY = 2
+DAY = 4
 
 # teambition导出的表格
 TB_EXCEL = 'ss.xlsx'
