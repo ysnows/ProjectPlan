@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67fc217a-50fd-4039-a456-c201c4964926" name="Default" comment="optimize model_excels">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Need微仓开发计划表.xls" afterPath="$PROJECT_DIR$/Need微仓开发计划表.xls" />
-      <change beforePath="$PROJECT_DIR$/Rd.py" afterPath="$PROJECT_DIR$/Rd.py" />
-      <change beforePath="$PROJECT_DIR$/sd.xls" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/ss.xlsx" afterPath="$PROJECT_DIR$/comein.xlsx" />
-      <change beforePath="$PROJECT_DIR$/test.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/蚂蚁微店开发计划表.xls" afterPath="$PROJECT_DIR$/蚂蚁微店开发计划表.xls" />
-    </list>
+    <list default="true" id="67fc217a-50fd-4039-a456-c201c4964926" name="Default" comment="optimize model_excels" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
