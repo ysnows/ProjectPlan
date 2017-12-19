@@ -1,14 +1,13 @@
-import calendar
 import datetime
 import shutil
-from mmap import mmap, ACCESS_READ
-from xlrd import open_workbook, cellname
-from tempfile import TemporaryFile
-from xlwt import Workbook
 import time
+
+from xlrd import open_workbook
 from xlutils.copy import copy
 
 # 开始日期
+from xlwt import XFStyle, Borders, Pattern
+
 YEAR = 2017
 MONTH = 12
 DAY = 4
@@ -39,6 +38,13 @@ ssd = copy(sd)
 VV1 = ssd.get_sheet(0)
 
 # 写入全部任务
+style = XFStyle()
+pattern = Pattern()
+borders = Borders()
+borders.right = Borders.THIN
+borders.left = Borders.THIN
+style.borders = borders
+
 for row_index in range(V1.nrows):
     if row_index == 0:
         continue
@@ -49,13 +55,24 @@ for row_index in range(V1.nrows):
             if V1.cell(row_index, 1).value != '':
                 pre = V1.cell(row_index, 1).value + '-'
 
-            VV1.write(i + 3, 1, pre + V1.cell(row_index, 0).value)
+            VV1.write(i + 3, 1, pre + V1.cell(row_index, 0).value, style)
 
 # 写入日期
+style = XFStyle()
+borders = Borders()
+borders.top = Borders.THIN
+borders.bottom = Borders.THIN
+style.borders = borders
+
 for index in range(TIME_SPAN):
     tom = datetime.datetime(YEAR, MONTH, DAY) + datetime.timedelta(days=index)
     text = tom.strftime('%m-%d')
-    VV1.write(MAX_TASK_NUM, index + 2, text)
+
+    if index == TIME_SPAN - 1:
+        borders.right = Borders.THIN
+        style.borders = borders
+
+    VV1.write(MAX_TASK_NUM, index + 2, text, style)
 
 ssd.save(MODEL_EXCEL)
 
@@ -75,12 +92,37 @@ for row_index in range(V1.nrows):
             else:
                 dd = stime[2]
             str = "%s-%s" % (stime[1], dd)
-            print(str)
             j = j + 1
             for date_index in range(TIME_SPAN):
                 val = VVV1.cell(MAX_TASK_NUM, date_index + 2).value
-                # print(val)
                 if str == val:
-                    VV1.write(j + 3, date_index + 2, '√')
+                    style = XFStyle()
+                    pattern = Pattern()
+                    pattern.pattern = Pattern.SOLID_PATTERN
 
+                    if V1.cell(row_index, 12).value == 'Y':  # 已完成
+                        if V1.cell(row_index, 17).value == 'Y':  # 已超期
+                            pattern.pattern_fore_colour = 0x0B
+                            style.pattern = pattern
+                            VV1.write(j + 3, date_index + 2, '√', style)
+                        else:
+                            pattern.pattern_fore_colour = 0x0F
+                            style.pattern = pattern
+                            VV1.write(j + 3, date_index + 2, '√', style)
+                    else:  # 没完成
+                        if V1.cell(row_index, 17).value == 'Y':  # 已超期
+                            pattern.pattern_fore_colour = 0x0A
+                            style.pattern = pattern
+                            VV1.write(j + 3, date_index + 2, '√', style)
+                        else:
+                            pattern.pattern_fore_colour = 0x0FFB
+                            VV1.write(j + 3, date_index + 2, '√')
+
+# style = XFStyle()
+# borders = Borders()
+# borders.right = Borders.THIN
+# style.borders = borders
+# val = VVV1.cell(0, 1).value
+# print(val)
+# VV1.write(0, 1, 'fds', style)
 ssd.save(MODEL_EXCEL)
