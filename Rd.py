@@ -1,5 +1,6 @@
 import calendar
 import datetime
+import shutil
 from mmap import mmap, ACCESS_READ
 from xlrd import open_workbook, cellname
 from tempfile import TemporaryFile
@@ -13,10 +14,12 @@ MONTH = 12
 DAY = 4
 
 # teambition导出的表格
-TB_EXCEL = 'ss.xlsx'
+TB_EXCEL = 'comein.xlsx'
 
 # 模板表格
-MODEL_EXCEL = 'sd.xls'
+MODEL_EXCEL = 'output.xls'
+
+shutil.copy('model_excel.xls', 'output.xls')
 
 # 任务数量
 MAX_TASK_NUM = 34
@@ -54,7 +57,7 @@ for index in range(TIME_SPAN):
     text = tom.strftime('%m-%d')
     VV1.write(MAX_TASK_NUM, index + 2, text)
 
-ssd.save('sd.xls')
+ssd.save(MODEL_EXCEL)
 
 # 写入功能截至时间
 j = 0
@@ -80,4 +83,4 @@ for row_index in range(V1.nrows):
                 if str == val:
                     VV1.write(j + 3, date_index + 2, '√')
 
-ssd.save('sd.xls')
+ssd.save(MODEL_EXCEL)
