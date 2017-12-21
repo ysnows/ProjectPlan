@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*
+import sys
+from imp import reload
+
+import sys
+
+reload(sys)
+
 import datetime
 import shutil
 import time
@@ -10,7 +18,10 @@ from xlwt import XFStyle, Borders, Pattern
 
 YEAR = 2017
 MONTH = 12
-DAY = 4
+DAY = 18
+
+# 要导出的标签
+LABEL = 'TASK'
 
 # teambition导出的表格
 TB_EXCEL = 'comein.xlsx'
@@ -48,7 +59,7 @@ style.borders = borders
 for row_index in range(V1.nrows):
     if row_index == 0:
         continue
-    if V1.cell(row_index, 8).value != '':
+    if V1.cell(row_index, 8).value == LABEL:
         if V1.cell(row_index, 5).value != '':
             i = i + 1
             pre = ''
