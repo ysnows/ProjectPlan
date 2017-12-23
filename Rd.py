@@ -35,7 +35,7 @@ shutil.copy('model_excel.xls', 'output.xls')
 MAX_TASK_NUM = 34
 
 # 任务时间跨度
-TIME_SPAN = 20
+TIME_SPAN = 30
 
 # 整理那个页面的数据
 SHEET = 0
