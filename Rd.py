@@ -16,9 +16,9 @@ from xlutils.copy import copy
 # 开始日期
 from xlwt import XFStyle, Borders, Pattern
 
-YEAR = 2017
-MONTH = 12
-DAY = 18
+YEAR = 2018
+MONTH = 1
+DAY = 1
 
 # 要导出的标签
 LABEL = 'TASK'
@@ -103,7 +103,13 @@ for row_index in range(V1.nrows):
                 dd = '0%s' % (stime[2],)
             else:
                 dd = stime[2]
-            str = "%s-%s" % (stime[1], dd)
+
+            if stime[1] < 10:
+                cc = '0%s' % (stime[1],)
+            else:
+                cc = stime[1]
+
+            str = "%s-%s" % (cc, dd)
             j = j + 1
             for date_index in range(TIME_SPAN):
                 val = VVV1.cell(MAX_TASK_NUM, date_index + 2).value
